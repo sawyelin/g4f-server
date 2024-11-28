@@ -10,7 +10,7 @@ import json
 from datetime import datetime
 import base64
 from io import BytesIO
-
+print(dir(g4f.models))
 app = FastAPI(title="G4F API", version="1.0.0")
 
 # CORS middleware configuration
@@ -26,30 +26,36 @@ app.add_middleware(
 RATE_LIMIT = 60  # requests per minute
 rate_limit_dict = {}
 
-# Available models mapping
+# Available models mapping - Updated with currently supported models
 AVAILABLE_MODELS = {
     "gpt-4": g4f.models.gpt_4,
+    "gpt-4-turbo": g4f.models.gpt_4_turbo,
     "gpt-3.5-turbo": g4f.models.gpt_35_turbo,
-    "gpt-3.5-turbo-16k": g4f.models.gpt_35_turbo_16k,
-    "claude-2": g4f.models.claude_2,
-    "claude-instant-1": g4f.models.claude_instant_1,
-    "palm-2": g4f.models.palm_2,
+    "claude-2.1": g4f.models.claude_2_1,
+    "claude-3-opus": g4f.models.claude_3_opus,
+    "claude-3-sonnet": g4f.models.claude_3_sonnet,
+    "claude-3-haiku": g4f.models.claude_3_haiku,
     "gemini-pro": g4f.models.gemini_pro,
-    "llama-2-70b": g4f.models.llama2_70b,
-    "code-llama-34b": g4f.models.codellama_34b,
-    "falcon-180b": g4f.models.falcon_180b,
+    "mixtral-8x7b": g4f.models.mixtral_8x7b,
+    "llama-2-7b": g4f.models.llama_2_7b,
+    "llama-3-70b": g4f.models.llama_3_1_70b,
+    "mistral-nemo": g4f.models.mistral_nemo,
+    "phi-2": g4f.models.phi_2,
+    "qwen-72b": g4f.models.qwen_2_72b,
+    "solar-pro": g4f.models.solar_pro
 }
 
-# Available providers
+# Available providers - Updated with currently working providers
 AVAILABLE_PROVIDERS = {
-    "DeepAi": Provider.DeepAi,
-    "Bard": Provider.Bard,
-    "Bing": Provider.Bing,
     "OpenaiChat": Provider.OpenaiChat,
-    "DeepInfra": Provider.DeepInfra,
-    "You": Provider.You,
-    "H2o": Provider.H2o,
     "Gemini": Provider.Gemini,
+    "GeminiPro": Provider.GeminiPro,
+    "DeepInfraChat": Provider.DeepInfraChat,
+    "Bing": Provider.Bing,
+    "HuggingChat": Provider.HuggingChat,
+    "MetaAI": Provider.MetaAI,
+    "Blackbox": Provider.Blackbox,
+    "You": Provider.You
 }
 
 class Message(BaseModel):
@@ -253,4 +259,4 @@ async def http_exception_handler(request: Request, exc: HTTPException):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=4000)
